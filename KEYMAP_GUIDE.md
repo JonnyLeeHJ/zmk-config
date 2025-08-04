@@ -11,9 +11,9 @@ Your Corne keyboard has **42 keys total** (21 per half):
 ## 📋 **Layer System**
 
 ### **Current Layers:**
-1. **Default (Layer 0)**: QWERTY layout
-2. **Lower (Layer 1)**: Numbers + Navigation + Bluetooth
-3. **Raise (Layer 2)**: Symbols + Special characters
+1. **Default (Layer 0)**: Engrammer layout
+2. **Lower (Layer 1)**: Symbols and punctuation
+3. **Raise (Layer 2)**: Numbers, navigation, Bluetooth, and media controls
 
 ### **Layer Activation Types:**
 - `&mo 1` = **Momentary** - Hold to activate layer 1
@@ -61,6 +61,60 @@ Your Corne keyboard has **42 keys total** (21 per half):
 &bt BT_NXT     // Next Bluetooth profile
 &bt BT_PRV     // Previous Bluetooth profile
 ```
+
+## 🎨 **Current Layout Configuration**
+
+### **Default Layer (Engrammer Layout)**
+```
+Left Hand                    Right Hand
+┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│ ESC │  B  │  Y  │  O  │  U  │  '  │ │  ;  │  L  │  D  │  W  │  V  │  Z  │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│ `   │  C  │  I  │  E  │  A  │  ,  │ │  .  │  H  │  T  │  S  │  N  │  Q  │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│ TAB │  G  │  X  │  J  │  K  │  -  │ │  /  │  R  │  M  │  F  │  P  │SHIFT│
+└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │ GUI │LOWER│BSPC │ │ENTER│SPACE│RAISE│ ALT │
+                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
+```
+
+**Special Features:**
+- **Mod-tap on H**: `&mt LCTRL H` - Hold for Left Control, tap for H
+- **Thumb keys**: GUI, Lower, Backspace | Enter, Space, Raise
+
+### **Lower Layer (Symbols & Punctuation)**
+```
+Left Hand                    Right Hand
+┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│ TAB │  !  │  @  │  #  │  $  │  %  │ │  ^  │  &  │  *  │  (  │  )  │BSPC │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │  -  │  =  │  [  │  ]  │  \  │ │  _  │  +  │  {  │  }  │  |  │  ~  │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │ │     │     │     │     │     │     │
+└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │ GUI │     │SPACE│ │ENTER│     │     │ ALT │
+                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
+```
+
+### **Raise Layer (Numbers, Navigation, Bluetooth, Media)**
+```
+Left Hand                    Right Hand
+┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│BTCLR│ BT3 │     │ UP  │     │PLAY │ │     │  7  │  8  │  9  │     │VOL+ │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│ BT1 │ BT4 │LEFT │DOWN │RIGHT│NEXT │ │     │  4  │  5  │  6  │     │VOL- │
+├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
+│ BT2 │ BT5 │     │     │     │PREV │ │     │  1  │  2  │  3  │  0  │MUTE │
+└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │ GUI │     │SPACE│ │ENTER│     │     │ ALT │
+                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
+```
+
+**Key Groups:**
+- **Bluetooth Controls**: BTCLR, BT1-BT5 (left side)
+- **Navigation**: UP, LEFT, DOWN, RIGHT (left side)
+- **Media Controls**: PLAY, NEXT, PREV (left column 6), VOL+, VOL-, MUTE (right column 6)
+- **Numbers**: Numpad layout (789, 456, 1230) on right side
 
 ## 🎨 **Common Customizations**
 
@@ -207,6 +261,27 @@ function_layer {
 5. **Wait** for GitHub Actions to build firmware
 6. **Download** and flash the new firmware
 
+## 🎯 **About the Engrammer Layout**
+
+The **Engrammer layout** is a phonetic keyboard layout designed to improve typing efficiency by placing frequently used letter combinations closer together. It's based on the principle that certain letter pairs appear together more often in English.
+
+### **Key Features:**
+- **Phonetic grouping**: Letters that commonly appear together are placed near each other
+- **Reduced finger travel**: Common letter combinations require minimal finger movement
+- **Optimized for English**: Designed specifically for English language patterns
+
+### **Layout Philosophy:**
+- **Top row**: ESC B Y O U ' ; L D W V Z
+- **Middle row**: ` C I E A , . H T S N Q  
+- **Bottom row**: TAB G X J K - / R M F P SHIFT
+
+### **Common Letter Pairs in Engrammer:**
+- **TH**: T and H are adjacent on the middle row
+- **ST**: S and T are adjacent on the middle row
+- **HE**: H and E are close together
+- **AN**: A and N are adjacent on the middle row
+- **IN**: I and N are close together
+
 ## 💡 **Pro Tips**
 
 - **Test incrementally** - Make small changes and test them
@@ -214,6 +289,7 @@ function_layer {
 - **Layer order matters** - Higher numbered layers are "on top"
 - **Backup your keymap** before major changes
 - **Use comments** to document your customizations
+- **Practice the Engrammer layout** - It may take time to adapt from QWERTY
 
 ## 🔗 **Useful Resources**
 
