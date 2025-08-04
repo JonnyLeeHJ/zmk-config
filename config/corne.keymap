@@ -20,8 +20,8 @@
 //                    | GUI | LWR | BSPC|   | ENT | SPC  | RSE |
                         bindings = <
    &kp ESC   &kp B &kp Y &kp O &kp U &kp SINGLE_QUOTE   &kp SEMICOLON &kp L &kp D &kp W &kp V &kp Z
-   &kp GRAVE_ACCENT &kp C &kp I &kp E &kp A &kp COMMA &kp PERIOD &mt LCTRL H &kp T &kp S &kp N &kp Q
-   &kp TAB   &kp G &kp X &kp J &kp K &kp MINUS &kp SLASH &kp R &kp M &kp F &kp P &kp RSHFT
+   &kp GRAVE &kp C &kp I &kp E &kp A &kp COMMA &kp DOT &mt LCTRL H &kp T &kp S &kp N &kp Q
+   &kp TAB   &kp G &kp X &kp J &kp K &kp MINUS &kp SLASH &kp R &kp M &kp F &kp P &kp RSHIFT
                   &kp LGUI &mo 1 &kp BSPC   &kp RET &kp SPACE &mo 2
                         >;
                 };
@@ -43,7 +43,7 @@
 // |      |     |     |     |     |     |   |     |     |     |     |     |      |
 //                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
-   &kp TAB    &kp EXCLAMATION &kp AT_SIGN &kp HASHPOUND &kp DOLLAR &kp PERCENT   &kp CARET &kp AMPERSAND &kp ASTERISK &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp BSPC
+   &kp TAB    &kp EXCLAMATION &kp AT_SIGN &kp HASH &kp DOLLAR &kp PERCENT   &kp CARET &kp AMPERSAND &kp ASTERISK &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp BSPC
    &trans     &kp MINUS &kp EQUAL &kp LEFT_BRACKET &kp RIGHT_BRACKET &kp BACKSLASH &kp UNDERSCORE &kp PLUS &kp LEFT_BRACE &kp RIGHT_BRACE &kp PIPE &kp TILDE
    &trans     &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
                                     &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
