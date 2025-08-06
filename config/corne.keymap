@@ -88,4 +88,24 @@
                 };
                 */
         };
+
+        // Bluetooth Profile Names
+        ble-profiles {
+                compatible = "zmk,ble-profiles";
+                profile-0 {
+                        name = "Mac";
+                };
+                profile-1 {
+                        name = "PC";
+                };
+                profile-2 {
+                        name = "Phone";
+                };
+                profile-3 {
+                        name = "Tablet";
+                };
+                profile-4 {
+                        name = "Gaming";
+                };
+        };
 };
