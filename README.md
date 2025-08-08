@@ -17,7 +17,7 @@ This repository contains the ZMK firmware configuration for a **Corne keyboard**
 - ✅ **Battery Status** - Real-time battery level indicator
 - ✅ **Output Status** - Bluetooth profile connection status
 - ✅ **Settings Wheel** - Top-right corner for configuration access
-- ✅ **Animated Art** - Custom urchin animation on peripheral display (right side)
+- ✅ **WPM Animation** - Bongo Cat animation that reacts to typing speed (left side)
 
 ## 🎨 **About the Engrammer Layout**
 
@@ -124,7 +124,7 @@ Left Hand                    Right Hand
 - **Board**: nice_nano_v2
 - **Shields**: corne_left/right + nice_view_adapter + nice_view_custom
 - **Display**: nice!view e-paper display (128x32)
-- **Animation**: urchin-peripheral-animation module
+- **Animation**: nice-view-mod with Bongo Cat WPM animation
 
 ### **Performance Settings:**
 - **Debouncing**: Fast (1ms press, 10ms release)
@@ -136,7 +136,7 @@ Left Hand                    Right Hand
 - **Battery Status**: Real-time indicator
 - **Output Status**: Bluetooth profile connection
 - **Settings Wheel**: Top-right corner
-- **Peripheral Animation**: Custom urchin animation on right side display
+- **WPM Animation**: Bongo Cat that reacts to typing speed on left side display
 
 ## 🚀 **Installation & Usage**
 
