@@ -4,16 +4,18 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: dsifry
-      url-base: https://github.com/dsifry
+    - name: mctechnology17
+      url-base: https://github.com/mctechnology17
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: nice-view-mod
-      remote: dsifry
+    # Display widgets: Luna WPM animation on the central, animations on the
+    # peripheral. Tested by its author against ZMK v0.3.0, our exact pin.
+    - name: zmk-nice-oled
+      remote: mctechnology17
       revision: main
   self:
     path: config
