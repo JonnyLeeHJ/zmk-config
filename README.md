@@ -1,222 +1,210 @@
-# ZMK Config for Corne Keyboard with Engrammer Layout
+# ZMK config for a wireless Corne
 
-This repository contains the ZMK firmware configuration for a **Corne keyboard** with **nice!nano v2** controllers and **nice!view** displays, featuring a custom **Engrammer layout** with optimized layers for symbols, numbers, navigation, Bluetooth controls, and media keys.
+QWERTY across four layers, with Luna the dog on the left display.
 
-## 🎯 **Firmware Version: v1.0**
+## Hardware
 
-**Status**: ✅ **Working** - First stable release with full nice!view display support
+- Corne, 42 keys, 3x6 plus 3 thumb keys per half
+- nice!nano v2 controllers (nRF52840)
+- nice!view displays on both halves
+- Left half is the central, right half is the peripheral
 
-### **Hardware Support:**
-- **Keyboard**: Corne (split 42-key keyboard)
-- **Controllers**: nice!nano v2 (nRF52840)
-- **Displays**: nice!view (128x32 e-paper display)
-- **Layout**: 6-column Corne with thumb keys
+ZMK is pinned to `v0.3` in `config/west.yml`.
 
-### **Display Features:**
-- ✅ **Layer Status** - Shows custom layer names ("Engram", "Symbols", "Numbers")
-- ✅ **Battery Status** - Real-time battery level indicator
-- ✅ **Output Status** - Bluetooth profile connection status
-- ✅ **Settings Wheel** - Top-right corner for configuration access
-- ✅ **WPM Animation** - Bongo Cat animation that reacts to typing speed (left side)
+## Layers
 
-## 🎨 **About the Engrammer Layout**
+Four layers. Adjust is reached by holding Lower and Raise together, wired
+through `conditional-layers` rather than a key of its own.
 
-The **Engrammer layout** is a phonetic keyboard layout designed to improve typing efficiency by placing frequently used letter combinations closer together. It's based on the principle that certain letter pairs appear together more often in English.
+| Layer | Name | How to reach it |
+|---|---|---|
+| 0 | Base | default |
+| 1 | Lower | hold the left outer thumb |
+| 2 | Raise | hold the bottom right outer key |
+| 3 | Adjust | hold Lower and Raise together |
 
-### **Key Benefits:**
+### Base
 
-#### **1. Natural Inward Hand Roll**
-One of the most significant advantages of Engrammer is that it promotes a **natural inward hand roll** motion. Unlike QWERTY which forces outward reaching, Engrammer places common letter combinations in positions that encourage your hands to naturally roll inward toward the center of the keyboard, reducing strain and improving comfort during extended typing sessions.
-
-#### **2. Phonetic Grouping**
-Letters that commonly appear together are placed near each other:
-- **TH**: T and H are adjacent on the middle row
-- **ST**: S and T are adjacent on the middle row  
-- **HE**: H and E are close together
-- **AN**: A and N are adjacent on the middle row
-- **IN**: I and N are close together
-
-#### **3. Reduced Finger Travel**
-Common letter combinations require minimal finger movement, reducing fatigue and increasing typing speed over time.
-
-#### **4. Optimized for English**
-Designed specifically for English language patterns and frequency analysis.
-
-### **Layout Philosophy:**
-- **Top row**: ESC B Y O U ' ; L D W V Z
-- **Middle row**: ` C I E A , . H T S N Q  
-- **Bottom row**: TAB G X J K - / R M F P SHIFT
-
-### **Ergonomic Advantages:**
-- **Inward hand motion** reduces wrist strain
-- **Balanced hand usage** prevents overuse of one hand
-- **Natural finger positioning** for common letter combinations
-- **Reduced reaching** for frequently used letters
-
-## 📋 **Layer System**
-
-### **Current Layers:**
-1. **Engram (Layer 0)**: Main Engrammer layout
-2. **Symbols (Layer 1)**: Symbols and punctuation
-3. **Numbers (Layer 2)**: Numbers, navigation, Bluetooth, and media controls
-
-### **Layer Activation:**
-- `&mo 1` = **Momentary** - Hold to activate layer 1
-- `&mo 2` = **Momentary** - Hold to activate layer 2
-
-## 🎨 **Current Layout Configuration**
-
-### **Engram Layer (Default)**
 ```
-Left Hand                    Right Hand
-┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ ESC │  B  │  Y  │  O  │  U  │  '  │ │  ;  │  L  │  D  │  W  │  V  │  Z  │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ `   │  C  │  I  │  E  │  A  │  ,  │ │  .  │  H  │  T  │  S  │  N  │  Q  │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ TAB │  G  │  X  │  J  │  K  │  -  │ │  /  │  R  │  M  │  F  │  P  │SHIFT│
-└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │ GUI │LOWER│BSPC │ │ENTER│SPACE│RAISE│ ALT │
-                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
+ ESC    Q     W     E     R     T   |   Y     U     I     O     P    GUI
+  `     A     S     D     F     G   |   H   CTL/J ALT/K   L     ;   CAPSW
+ TAB    Z     X     C     V     B   |   N     M     ,     .     /    RSE
+                 LWR   SFT  BSPC    |  ENT   SPC    '
 ```
 
-**Special Features:**
-- **Mod-tap on H**: `&mt LCTRL H` - Hold for Left Control, tap for H
-- **Thumb keys**: GUI, Lower, Backspace | Enter, Space, Raise
+Two keys do double duty. `J` types J when tapped and acts as Ctrl when held,
+`K` types K when tapped and acts as Alt when held. Those letters were chosen
+deliberately: a mod tap misfires when you linger on the key mid word, so the
+risk tracks letter frequency. J is the rarest letter in English and K is close
+behind, which makes them the two safest hosts on the board. Ctrl lived on H
+originally and H appears in about six percent of English text, which was far
+too busy for the job.
 
-### **Symbols Layer**
-```
-Left Hand                    Right Hand
-┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ TAB │  !  │  @  │  #  │  $  │  %  │ │  ^  │  &  │  *  │  (  │  )  │BSPC │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  -  │  =  │  [  │  ]  │  \  │ │  _  │  +  │  {  │  }  │  |  │  ~  │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │ │     │     │     │     │     │     │
-└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │ GUI │     │SPACE│ │ENTER│     │     │ ALT │
-                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
-```
+`CAPSW` is caps word. Tap it and everything types capitalized until a space or
+punctuation ends the run. Underscores do not break it, so `MY_LONG_CONSTANT`
+works in one go.
 
-### **Numbers Layer**
+### Lower, symbols and brackets
+
 ```
-Left Hand                    Right Hand
-┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│BTCLR│ BT3 │     │ UP  │     │PLAY │ │     │  7  │  8  │  9  │     │VOL+ │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ BT1 │ BT4 │LEFT │DOWN │RIGHT│NEXT │ │     │  4  │  5  │  6  │     │VOL- │
-├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ BT2 │ BT5 │     │     │     │PREV │ │     │  1  │  2  │  3  │  0  │MUTE │
-└─────┴─────┴─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │ GUI │     │SPACE│ │ENTER│     │     │ ALT │
-                  └─────┴─────┴─────┘ └─────┴─────┴─────┴─────┘
+        !     @     #     $     %   |   ^     &     *     (     )
+        `     ~     _     \     |   |         (     )     {     }
+                                    |         [     ]
+                             DEL    |
 ```
 
-**Key Groups:**
-- **Bluetooth Controls**: BTCLR, BT1-BT5 (left side)
-- **Navigation**: UP, LEFT, DOWN, RIGHT (left side)
-- **Media Controls**: PLAY, NEXT, PREV (left column 6), VOL+, VOL-, MUTE (right column 6)
-- **Numbers**: Numpad layout (789, 456, 1230) on right side
+The shifted number row keeps its standard positions, so existing muscle memory
+transfers. All six brackets sit on the right hand: parens on index and middle
+of the home row, braces beside them on ring and pinky, square brackets directly
+under the parens. `{{ ref('model') }}` never leaves the right hand.
 
-## 🔧 **Configuration Details**
+The `H` column stays transparent on this layer, which keeps the Ctrl mod tap
+reachable while Lower is held.
 
-### **Hardware Configuration:**
-- **Board**: nice_nano_v2
-- **Shields**: corne_left/right + nice_view_adapter + nice_view_custom
-- **Display**: nice!view e-paper display (128x32)
-- **Animation**: nice-view-mod with Bongo Cat WPM animation
+`<` `>` `:` `"` and `?` are deliberately absent. Shift sits on the left thumb
+and comma, period, slash, semicolon and apostrophe are all on the right hand,
+so each of those is already a comfortable cross hand press on the base layer.
 
-### **Performance Settings:**
-- **Debouncing**: Fast (1ms press, 10ms release)
-- **Bluetooth Range**: Extended (+8dBm)
-- **ZMK Studio**: Enabled for real-time keymap updates
+### Raise, numbers and navigation
 
-### **Display Configuration:**
-- **Layer Status**: Custom names ("Engram", "Symbols", "Numbers")
-- **Battery Status**: Real-time indicator
-- **Output Status**: Bluetooth profile connection
-- **Settings Wheel**: Top-right corner
-- **WPM Animation**: Bongo Cat that reacts to typing speed on left side display
-
-## 🚀 **Installation & Usage**
-
-### **Building Firmware:**
-1. **Fork this repository** to your GitHub account
-2. **GitHub Actions** will automatically build firmware
-3. **Download** from the Actions tab
-4. **Flash** to your nice!nano v2 controllers
-
-### **Flashing Instructions:**
-1. **Enter bootloader** by double-tapping reset button
-2. **Drag and drop** .uf2 file to NICENANO drive
-3. **Wait for completion** - drive will disappear and reboot
-4. **Power on** keyboard using side switch
-
-### **Split Keyboard Behavior:**
-- **Left Side (Central)**: Full display with all widgets
-- **Right Side (Peripheral)**: Limited display (battery + basic status)
-
-## 🎯 **Customization**
-
-### **Layer Names:**
-Edit `config/corne.keymap` to change layer labels:
-```c
-default_layer {
-    label = "Your Layer Name";
-    // ... bindings
-};
+```
+        7     8     9     /     *   |              UP        VOL+
+        4     5     6     -     +   |        LFT  DWN  RGT   VOL-
+        1     2     3     0     =   |       PREV  PLAY NEXT  MUTE
 ```
 
-### **Keymap Changes:**
-- **Add layers**: Uncomment and modify the function_layer example
-- **Modify keys**: Change individual key bindings
-- **Add behaviors**: Use mod-taps, layer-taps, combos
+A numpad with its operators on the left hand, arrows and media on the right.
+Raise is held with the right pinky, so the number pad deliberately lives on the
+opposite hand. The `H` column and the left thumbs stay transparent so Ctrl and
+Shift still work here, which is what makes Ctrl plus arrow and Shift plus arrow
+usable for selecting text by word.
 
-### **Performance Tuning:**
-Edit `config/corne.conf` for:
-- **Debouncing speed**
-- **Bluetooth range**
-- **Power management**
+### Adjust, everything else
 
-## 📚 **Resources**
+```
+        F1    F2    F3    F4    F5  |  F6    F7    F8    F9   F10
+        F11   F12  CAPS  INS  PSCRN |  HOME  PGUP  PGDN  END  BOOT
+        USB   BLE  BTCLR BOOT RESET |  BT1   BT2   BT3   BT4  BT5
+```
 
-### **ZMK Documentation:**
-- [ZMK Main Documentation](https://zmk.dev/docs)
-- [Configuration Reference](https://zmk.dev/docs/config)
-- [Key Code Reference](https://zmk.dev/docs/codes)
+Bootloader appears twice on purpose. It only puts the half you press it on into
+flashing mode, so each half needs its own.
 
-### **Community:**
-- [ZMK Discord](https://zmk.dev/community/discord/invite)
-- [ZMK Studio](https://zmk.studio/) - Visual keymap editor
+## Bluetooth
 
-### **Hardware:**
-- [Corne Keyboard](https://github.com/foostan/corne)
-- [nice!nano v2](https://nicekeyboards.com/nice-nano)
-- [nice!view](https://nicekeyboards.com/nice-view)
+Five profiles, each with its own Bluetooth identity, so the keyboard bonds to
+five hosts independently. On the Adjust layer, using base layer letters for
+position:
 
-## 💡 **Tips for Engrammer Layout**
+| Press | Does |
+|---|---|
+| N M , . / | select profile 1 through 5 |
+| C | clear the selected profile |
+| Z | force output to USB |
+| X | force output to Bluetooth |
 
-### **Learning Curve:**
-- **Start slow** - Engrammer requires retraining from QWERTY
-- **Practice common words** - Focus on TH, ST, HE, AN, IN combinations
-- **Use typing tests** - Gradually increase speed as you adapt
-- **Be patient** - Full adaptation takes 2-4 weeks of regular use
+ZMK only advertises on a profile with no existing bond, so a profile that
+already remembers a host will sit silent rather than offer itself for pairing.
+Clear it first with `C`, and remove the keyboard on the host side too.
 
-### **Ergonomic Benefits:**
-- **Reduced wrist strain** from inward hand motion
-- **Better finger positioning** for common letter pairs
-- **More balanced hand usage** prevents overuse
-- **Natural typing flow** once adapted
+`CONFIG_BT_CTLR_PHY_2M=n` is set because some Realtek and Intel chipsets on
+Windows negotiate the 2Mbps PHY badly and pairing fails partway through
+bonding.
 
-## 🔄 **Version History**
+## Displays
 
-### **v1.0** - First Working Release
-- ✅ **Working nice!view display** with all widgets
-- ✅ **Custom layer names** ("Engram", "Symbols", "Numbers")
-- ✅ **Engrammer layout** with mod-tap on H key
-- ✅ **Optimized performance** settings
-- ✅ **ZMK Studio support** for real-time updates
+Driven by [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) using
+its `nice_epaper` shield.
 
----
+- Left: Luna, whose gait tracks WPM, with the live WPM graph and number below
+- Right: the module's animated peripheral screen
 
-*This configuration provides a comfortable, efficient typing experience with the Engrammer layout's natural inward hand roll motion, reducing strain and improving long-term ergonomics.* 
+Notes on the settings behind that, all in `config/corne.conf`:
+
+- Luna reads a rolling WPM average and cannot react to individual keystrokes.
+  The frame tick is dropped from 300ms to 150ms because that is the only lever
+  on how alive she feels.
+- `CONFIG_NICE_OLED_WIDGET_RESPONSIVE=y` raises the display thread priority
+  from 5 to 3 and its stack from 2560 to 4096. Without it, typing starves the
+  display thread and the animation freezes exactly while you are typing.
+- The module enables its own bongo cat by default, and its source defines the
+  same symbols as Luna, so building both is a linker error. Exactly one WPM
+  animation may be on.
+- The modifier indicator strip is off because it renders partially off canvas
+  on this display.
+
+## ZMK Studio is disabled
+
+`CONFIG_ZMK_STUDIO=n`, deliberately.
+
+With Studio enabled, the keymap is served from settings storage and the keymap
+compiled into the firmware is ignored. Settings storage is not touched by
+flashing, by design, so that Bluetooth bonds survive firmware updates. The
+result is that a freshly flashed keymap change appears to do nothing at all,
+while layer names from the firmware still show on the display, which makes it
+look like the flash worked.
+
+With Studio off, this repo is unambiguously the source of truth. If Studio is
+ever re-enabled, the escape hatch is Restore Stock Settings in the Studio UI,
+or flashing `settings_reset` to both halves.
+
+## Building and flashing
+
+GitHub Actions builds on every push. Download the `firmware` artifact from the
+Actions tab.
+
+1. Plug in a half over a USB C data cable. A charge only cable will not work.
+2. Double tap the reset button. A `NICENANO` drive appears.
+3. Drag the matching `.uf2` onto it.
+
+Windows reports error `0x800701B1` when the copy finishes. That is expected and
+means it worked. The bootloader reboots the moment the last block lands, which
+pulls the drive out from under Explorer before it can finalize. Click Cancel,
+not Try Again.
+
+Which half needs flashing:
+
+- Keymap changes: left half only. The central resolves the whole keymap; the
+  peripheral only reports key positions.
+- Central display changes: left half only.
+- Peripheral display changes: right half.
+- Never put the left firmware on the right half. That produces two centrals
+  which cannot talk to each other.
+
+`settings_reset` clears the stored bonds and any stored keymap. To use it,
+flash it to both halves, power both off, then flash real firmware to both.
+Doing one half at a time leaves the other holding a stale bond that will
+re-poison the pair.
+
+## Charging
+
+Each half has its own battery, its own charging circuit and its own USB port.
+Nothing crosses between them, so each is charged separately.
+
+**The power switch must be on to charge.** The switch sits in series with the
+battery, so with it off the cell is physically disconnected and the charger has
+nothing to charge. This fails silently: the board runs from USB power, the
+display lights up and the keyboard types normally while the battery gains
+nothing.
+
+Any USB C cable and any normal 5V source works. Charging runs at roughly 100mA
+by design, so a flat cell takes a few hours. To confirm it is working, note the
+battery percentage on the display, wait an hour and check it moved.
+
+## Known issue
+
+One desktop PC using a Realtek USB dongle (VID 0BDA, PID B850) will not bond
+with this keyboard across any profile, having also been tried with the 2Mbps
+PHY disabled and with passkey entry enabled. The same keyboard pairs first time
+with a phone and a MacBook, and a BLE mouse stays bonded on that same dongle.
+The conclusion is the dongle, not the firmware. Passkey entry was reverted
+because it forces a typed code on every pairing and breaks the bonds that do
+work.
+
+## Resources
+
+- [ZMK documentation](https://zmk.dev/docs)
+- [Key codes](https://zmk.dev/docs/codes)
+- [Connection issues](https://zmk.dev/docs/troubleshooting/connection-issues)
+- [nice!nano](https://nicekeyboards.com/docs/nice-nano/)
+- [Corne](https://github.com/foostan/corne)
