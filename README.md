@@ -4,9 +4,21 @@ QWERTY across four layers, with Luna the dog on the left display.
 
 ![Layout reference](docs/layout.png)
 
-The sheet above is generated from these bindings by `docs/generate-layout.js`
-(`node docs/generate-layout.js` writes `docs/layout.svg`). Regenerate it when
-the keymap changes so the picture cannot drift from the config.
+[Printable version: docs/layout.pdf](docs/layout.pdf), sized to a single A4
+page.
+
+The sheet is generated from these bindings by `docs/generate-layout.js`, so
+regenerate it when the keymap changes rather than editing the image:
+
+```
+node docs/generate-layout.js
+chrome --headless --no-pdf-header-footer \
+       --print-to-pdf=docs/layout.pdf file:///ABS/PATH/docs/layout.html
+```
+
+The first command writes `docs/layout.svg` and `docs/layout.html`; the second
+turns the HTML into the A4 PDF. `docs/layout.png` is the same SVG rasterised
+for display here.
 
 ## Hardware
 
