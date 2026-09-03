@@ -2,6 +2,12 @@
 
 QWERTY across four layers, with Luna the dog on the left display.
 
+![Layout reference](docs/layout.png)
+
+The sheet above is generated from these bindings by `docs/generate-layout.js`
+(`node docs/generate-layout.js` writes `docs/layout.svg`). Regenerate it when
+the keymap changes so the picture cannot drift from the config.
+
 ## Hardware
 
 - Corne, 42 keys, 3x6 plus 3 thumb keys per half
