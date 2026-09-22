@@ -45,28 +45,29 @@ through `conditional-layers` rather than a key of its own.
 
 ```
  ESC    Q     W     E     R     T   |   Y     U     I     O     P    GUI
-  `     A     S     D     F     G   |   H   CTL/J ALT/K   L     ;   CAPSW
- TAB    Z     X     C     V     B   |   N     M     ,     .     /    RSE
+  `     A     S     D     F     G   |   H     J     K     L     ;   ALT
+CTL/TAB Z     X     C     V     B   |   N     M     ,     .     /    RSE
                  LWR   SFT  BSPC    |  ENT   SPC    '
 ```
 
-Two keys do double duty. `J` types J when tapped and acts as Ctrl when held,
-`K` types K when tapped and acts as Alt when held. Those letters were chosen
-deliberately: a mod tap misfires when you linger on the key mid word, so the
-risk tracks letter frequency. J is the rarest letter in English and K is close
-behind, which makes them the two safest hosts on the board. Ctrl lived on H
-originally and H appears in about six percent of English text, which was far
-too busy for the job.
+Tab is a hold-tap: tap for Tab, hold for 200ms for Left Ctrl. It uses a
+dedicated tap-preferred behavior so pressing another key during a quick Tab
+does not immediately turn it into Ctrl. For shortcuts, hold Tab past 200ms
+before pressing the shortcut key. J and K are plain letters again.
 
-`CAPSW` is caps word. Tap it and everything types capitalized until a space or
-punctuation ends the run. Underscores do not break it, so `MY_LONG_CONSTANT`
-works in one go.
+The right outer home-row key is dedicated Right Alt, which is Right Option
+on macOS (and may act as AltGr with some Windows keyboard layouts).
+GUI remains Windows on Windows and Command on macOS.
+
+Hold Lower and tap the Alt/Option position to enable Caps Word. Release Lower
+before typing the word. Spaces end Caps Word; underscores do not, so
+MY_LONG_CONSTANT works in one go.
 
 ### Lower, symbols and brackets
 
 ```
         !     @     #     $     %   |   ^     &     *     (     )
-        `     ~     _     \     |   |         (     )     {     }
+        `     ~     _     \     |   |         (     )     {     }   CAPSW
                                     |         [     ]
                              DEL    |
 ```
@@ -76,8 +77,9 @@ transfers. All six brackets sit on the right hand: parens on index and middle
 of the home row, braces beside them on ring and pinky, square brackets directly
 under the parens. `{{ ref('model') }}` never leaves the right hand.
 
-The `H` column stays transparent on this layer, which keeps the Ctrl mod tap
-reachable while Lower is held.
+The Tab/Ctrl position stays transparent on every higher layer, keeping Ctrl
+available with brackets and navigation. On Lower, the Alt position is Caps
+Word; to combine Option with a symbol, hold Option before activating Lower.
 
 `<` `>` `:` `"` and `?` are deliberately absent. Shift sits on the left thumb
 and comma, period, slash, semicolon and apostrophe are all on the right hand,
@@ -93,9 +95,8 @@ so each of those is already a comfortable cross hand press on the base layer.
 
 A numpad with its operators on the left hand, arrows and media on the right.
 Raise is held with the right pinky, so the number pad deliberately lives on the
-opposite hand. The `H` column and the left thumbs stay transparent so Ctrl and
-Shift still work here, which is what makes Ctrl plus arrow and Shift plus arrow
-usable for selecting text by word.
+opposite hand. Tab/Ctrl, Alt/Option and Shift stay transparent on Raise, so modifiers remain
+available for navigation. Hold Tab for at least 200ms before Ctrl+arrow.
 
 ### Adjust, everything else
 

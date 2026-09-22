@@ -25,57 +25,51 @@ const TITLE_H = 70;
 const LYR_HEAD = 34;
 const LYR_GAP = 12;
 
-const layers = [
-  {
-    name: 'Base',
-    sub: 'no key held',
-    rows: [
-      ['ESC', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'GUI'],
-      ['`', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', 'CAPS\nWORD'],
-      ['TAB', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'RAISE'],
-    ],
-    thumbs: ['LOWER', 'SHIFT', 'BKSP', 'ENTER', 'SPACE', "'"],
-    holds: { '1,7': 'CTRL', '1,8': 'ALT' },
-    accents: ['1,7', '1,8', '1,11', '2,11'],
-    thumbAccents: [0],
-  },
-  {
-    name: 'Lower',
-    sub: 'hold left outer thumb',
-    rows: [
-      ['', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', ''],
-      ['', '`', '~', '_', '\\', '|', '', '(', ')', '{', '}', ''],
-      ['', '', '', '', '', '', '', '[', ']', '', '', ''],
-    ],
-    thumbs: ['', '', 'DEL', '', '', ''],
-    accents: [],
-    thumbAccents: [],
-  },
-  {
-    name: 'Raise',
-    sub: 'hold bottom right outer key',
-    rows: [
-      ['', '7', '8', '9', '/', '*', '', '', 'UP', '', 'VOL+', ''],
-      ['', '4', '5', '6', '-', '+', '', 'LEFT', 'DOWN', 'RIGHT', 'VOL-', ''],
-      ['', '1', '2', '3', '0', '=', '', 'PREV', 'PLAY', 'NEXT', 'MUTE', ''],
-    ],
-    thumbs: ['', '', '', '', '', ''],
-    accents: [],
-    thumbAccents: [],
-  },
-  {
-    name: 'Adjust',
-    sub: 'hold Lower and Raise together',
-    rows: [
-      ['', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', ''],
-      ['', 'F11', 'F12', 'CAPS', 'INS', 'PRT\nSCR', 'HOME', 'PG\nUP', 'PG\nDN', 'END', 'BOOT', ''],
-      ['', 'USB', 'BLE', 'BT\nCLR', 'BOOT', 'RESET', 'BT 1', 'BT 2', 'BT 3', 'BT 4', 'BT 5', ''],
-    ],
-    thumbs: ['', '', '', '', '', ''],
-    accents: [],
-    thumbAccents: [],
-  },
-];
+// Read the firmware bindings directly; fail rather than silently omit a key.
+const path = require('path');
+const source = fs.readFileSync(path.join(__dirname, '../config/corne.keymap'), 'utf8');
+const clean = source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+const aliases = {
+ GRAVE:'\x60', SEMI:';', COMMA:',', DOT:'.', FSLH:'/', LGUI:'GUI',
+ RALT:'ALT\nOPT', LSHFT:'SHIFT', BSPC:'BKSP', RET:'ENTER', SPACE:'SPACE', SQT:"'",
+ EXCL:'!', AT:'@', HASH:'#', DLLR:'$', PRCNT:'%', CARET:'^', AMPS:'&',
+ STAR:'*', LPAR:'(', RPAR:')', TILDE:'~', UNDER:'_', BSLH:'\\', PIPE:'|',
+ LBRC:'{', RBRC:'}', LBKT:'[', RBKT:']', MINUS:'-', PLUS:'+', EQUAL:'=',
+ C_VOL_UP:'VOL+', C_VOL_DN:'VOL-', C_PREV:'PREV', C_PP:'PLAY',
+ C_NEXT:'NEXT', C_MUTE:'MUTE', PSCRN:'PRT\nSCR', PG_UP:'PG\nUP', PG_DN:'PG\nDN'
+};
+function decode(binding) {
+ const [behavior, ...args] = binding.trim().split(/\s+/);
+ if(behavior === '&trans') return {label:''};
+ if(behavior === '&kp') {
+   const code=args[0];
+   if(aliases[code] !== undefined) return {label:aliases[code]};
+   if(/^N[0-9]$/.test(code)) return {label:code.slice(1)};
+   if(/^[A-Z]$|^F(?:[1-9]|1[0-2])$|^(ESC|TAB|DEL|UP|DOWN|LEFT|RIGHT|CAPS|INS|HOME|END)$/.test(code)) return {label:code};
+ }
+ if(behavior === '&tab_ctrl' && args.join(' ') === 'LCTRL TAB') return {label:'TAB',hold:'CTRL'};
+ if(behavior === '&caps_word') return {label:'CAPS\nWORD'};
+ if(behavior === '&mo') return {label:args[0] === '1' ? 'LOWER' : 'RAISE'};
+ if(behavior === '&bootloader') return {label:'BOOT'};
+ if(behavior === '&sys_reset') return {label:'RESET'};
+ if(behavior === '&out') return {label:args[0] === 'OUT_USB' ? 'USB' : 'BLE'};
+ if(behavior === '&bt') return {label:args[0] === 'BT_CLR' ? 'BT\nCLR' : 'BT '+(Number(args[1])+1)};
+ throw new Error('Unknown diagram binding: '+binding);
+}
+const subtitles=['no key held','hold left outer thumb','hold bottom right outer key','hold Lower and Raise together'];
+const layers = [...clean.matchAll(/label\s*=\s*"([^"]+)"\s*;\s*bindings\s*=\s*<([\s\S]*?)>;/g)].map((match,index)=>{
+ const keys=(match[2].match(/&[^&]+/g)||[]).map(decode);
+ if(keys.length !== 42) throw new Error(match[1]+': expected 42 keys, got '+keys.length);
+ const holds={}; const accents=[];
+ keys.slice(0,36).forEach((key,i)=>{
+   const id=Math.floor(i/12)+','+(i%12);
+   if(key.hold) holds[id]=key.hold;
+   if(key.hold || ['ALT\nOPT','CAPS\nWORD','RAISE'].includes(key.label)) accents.push(id);
+ });
+ return {name:match[1],sub:subtitles[index],rows:[keys.slice(0,12),keys.slice(12,24),keys.slice(24,36)].map(row=>row.map(k=>k.label)),
+ thumbs:keys.slice(36).map(k=>k.label),holds,accents,thumbAccents:index === 0 ? [0] : []};
+});
+if(layers.length !== 4) throw new Error('Expected four layers');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -163,7 +157,7 @@ for (const L of layers) {
   cy += layerH;
 }
 
-s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN - 16}">Orange keys change what the other keys do. J and K type normally when tapped and act as Ctrl and Alt when held.</text>`;
+s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN - 16}">Tap Tab / hold 200ms for Ctrl. J and K are plain letters. Alt = Option on Mac. Lower + Alt = Caps Word.</text>`;
 s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN}">Only the Base layer is printed on the keycaps. Caps word capitalises until a space, and underscores do not break it.</text>`;
 s += '</svg>';
 
