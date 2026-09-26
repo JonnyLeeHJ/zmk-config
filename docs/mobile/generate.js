@@ -1,4 +1,4 @@
-const fs=require('fs'),path=require('path'),vm=require('vm'),cp=require('child_process');
+const fs=require('fs'),path=require('path'),vm=require('vm'),cp=require('child_process'),crypto=require('crypto');
 const root=path.join(__dirname,'../..');
 const source=fs.readFileSync(path.join(__dirname,'../generate-layout.js'),'utf8');
 const context={require,__dirname:path.join(__dirname,'..')};
@@ -7,4 +7,10 @@ vm.runInContext(source.slice(0,source.indexOf('const esc ='))+'\nglobalThis.resu
 const data={revision:cp.execFileSync('git',['log','-1','--format=%h','--','config/corne.keymap'],{cwd:root,encoding:'utf8'}).trim(),layers:context.result};
 const template=fs.readFileSync(path.join(__dirname,'template.html'),'utf8');
 fs.writeFileSync(path.join(__dirname,'index.html'),template.replace('__KEYMAP_DATA__',JSON.stringify(data).replace(/</g,'\\u003c')));
-console.log('Generated mobile reference from four live keymap layers.');
+fs.copyFileSync(path.join(__dirname,'../layout.pdf'),path.join(__dirname,'layout.pdf'));
+const assets=['index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','layout.pdf'];
+const hash=crypto.createHash('sha256');
+for(const asset of assets)hash.update(fs.readFileSync(path.join(__dirname,asset)));
+const sw=fs.readFileSync(path.join(__dirname,'sw-template.js'),'utf8').replace('__CACHE_VERSION__',hash.digest('hex').slice(0,16));
+fs.writeFileSync(path.join(__dirname,'sw.js'),sw);
+console.log('Generated app and versioned offline cache from '+data.revision);

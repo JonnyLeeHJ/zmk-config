@@ -1,0 +1,35 @@
+name: Publish mobile keymap
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node docs/mobile/generate.js
+      - name: Stage public app assets
+        run: |
+          mkdir _site
+          cp docs/mobile/index.html docs/mobile/manifest.webmanifest docs/mobile/sw.js docs/mobile/icon-*.png docs/mobile/layout.pdf _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        uses: actions/deploy-pages@v4

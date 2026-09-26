@@ -2,6 +2,16 @@
 
 QWERTY across four layers, with Luna the dog on the left display.
 
+[Open the mobile keymap app](https://JonnyLeeHJ.github.io/zmk-config/).
+On iPhone, open it in Safari, use Share > Add to Home Screen, and enable
+Open as Web App if offered. Open online once to cache all four layers and
+the printable sheet for offline use. Reopen online after firmware updates.
+The app only describes bindings; it does not change or flash your keyboard.
+
+Run node docs/mobile/generate.js after regenerating the PDF.
+GitHub Pages deployment regenerates its data from the checked-in keymap.
+
+
 ![Layout reference](docs/layout.png)
 
 [Printable version: docs/layout.pdf](docs/layout.pdf), sized to a single A4
@@ -45,7 +55,7 @@ through `conditional-layers` rather than a key of its own.
 
 ```
  ESC    Q     W     E     R     T   |   Y     U     I     O     P    GUI
-  `     A     S     D     F     G   |   H     J     K     L     ;   ALT
+  `     A     S     D     F     G   |   H     J     K     L     ;  CW/ALT
 CTL/TAB Z     X     C     V     B   |   N     M     ,     .     /    RSE
                  LWR   SFT  BSPC    |  ENT   SPC    '
 ```
@@ -55,19 +65,22 @@ dedicated tap-preferred behavior so pressing another key during a quick Tab
 does not immediately turn it into Ctrl. For shortcuts, hold Tab past 200ms
 before pressing the shortcut key. J and K are plain letters again.
 
-The right outer home-row key is dedicated Right Alt, which is Right Option
-on macOS (and may act as AltGr with some Windows keyboard layouts).
-GUI remains Windows on Windows and Command on macOS.
+The right outer home-row key (CW/ALT) does double duty: tap for Caps Word,
+hold for 200 ms for Right Alt / Option. This uses tap-preferred handling,
+just like Tab/Ctrl. Wait for the hold threshold before pressing an Alt/Option
+shortcut; a shorter press activates Caps Word instead. On some Windows
+keyboard layouts Right Alt acts as AltGr.
 
-Hold Lower and tap the Alt/Option position to enable Caps Word. Release Lower
-before typing the word. Spaces end Caps Word; underscores do not, so
-MY_LONG_CONSTANT works in one go.
+Caps Word is on Base, with no layer required. Tap it and type your identifier.
+Spaces end it; underscores do not, so MY_LONG_CONSTANT works in one go.
+The same key is transparent on Lower, Raise and Adjust, inheriting this behavior.
+GUI remains Windows on Windows and Command on macOS.
 
 ### Lower, symbols and brackets
 
 ```
         !     @     #     $     %   |   ^     &     *     (     )
-        `     ~     _     \     |   |         (     )     {     }   CAPSW
+        `     ~     _     \     |   |         (     )     {     }
                                     |         [     ]
                              DEL    |
 ```
@@ -78,8 +91,7 @@ of the home row, braces beside them on ring and pinky, square brackets directly
 under the parens. `{{ ref('model') }}` never leaves the right hand.
 
 The Tab/Ctrl position stays transparent on every higher layer, keeping Ctrl
-available with brackets and navigation. On Lower, the Alt position is Caps
-Word; to combine Option with a symbol, hold Option before activating Lower.
+available with brackets and navigation. Alt/Caps Word is also inherited on Lower: hold for Option or tap for Caps Word.
 
 `<` `>` `:` `"` and `?` are deliberately absent. Shift sits on the left thumb
 and comma, period, slash, semicolon and apostrophe are all on the right hand,

@@ -1,19 +1,25 @@
-# Mobile reference draft
+# Corne Pocket Keymap
 
-Run from the repository root:
+Published at https://JonnyLeeHJ.github.io/zmk-config/ by the Pages workflow.
+On iPhone, use Safari > Share > Add to Home Screen. Enable Open as Web App if
+offered. Open online once before using offline. Browser storage eviction or
+clearing website data can require another online visit.
 
+Regenerate from the repo root after updating the keymap and printable PDF:
+
+    node docs/generate-layout.js
+    # Render docs/layout.html to docs/layout.pdf as described in README.md.
     node docs/mobile/generate.js
 
-Open docs/mobile/index.html or serve the repository with a local static HTTP
-server. The page embeds its data and needs no CDN or runtime dependencies.
+The mobile generator reuses the diagram's binding parser and records the latest
+keymap commit. It embeds all four layers; the service worker caches the app,
+icons and PDF. Its cache version hashes these assets, and old app caches are
+removed on activation. Online requests refresh the cache; reopen online to see
+updated mappings. OS label preference is stored locally.
 
-The generator reuses the binding parser from docs/generate-layout.js, reads
-config/corne.keymap, and records the most recent commit that changed that file.
-Regenerate after every mapping change. Edit template.html rather than index.html.
+Edit template.html and sw-template.js, then regenerate. Do not hand-edit the
+generated index.html or sw.js. Pages stages only public app assets, not sources.
 
-All four layers display effective bindings. Adjust resolves transparent keys
-through Raise, Lower, then Base. Tapping keys is informational and never sends
-keyboard commands. Mac/Windows toggles only the labels.
-
-This is a draft, not a published GitHub Pages site. Offline installation and
-automatic deployment are not configured.
+Transparent keys resolve through Raise, Lower, Base on Adjust. Tapping keys
+only explains their behavior: this app never sends commands to the keyboard.
+Firmware still needs to be flashed separately.

@@ -48,6 +48,7 @@ function decode(binding) {
    if(/^[A-Z]$|^F(?:[1-9]|1[0-2])$|^(ESC|TAB|DEL|UP|DOWN|LEFT|RIGHT|CAPS|INS|HOME|END)$/.test(code)) return {label:code};
  }
  if(behavior === '&tab_ctrl' && args.join(' ') === 'LCTRL TAB') return {label:'TAB',hold:'CTRL'};
+ if(behavior === '&alt_caps' && args.join(' ') === 'RALT 0') return {label:'CAPS WORD',hold:'ALT / OPT'};
  if(behavior === '&caps_word') return {label:'CAPS\nWORD'};
  if(behavior === '&mo') return {label:args[0] === '1' ? 'LOWER' : 'RAISE'};
  if(behavior === '&bootloader') return {label:'BOOT'};
@@ -109,7 +110,7 @@ function key(x, y, label, kind, hold) {
   const cls = lines.some((l) => l.length > 4) || lines.length > 1 ? 'ks' : 'k';
   if (hold) {
     o += `<text class="hold" x="${cx}" y="${y + 12}">${esc(hold)}</text>`;
-    o += `<text class="${cls}" x="${cx}" y="${y + 28}">${esc(lines[0])}</text>`;
+    o += `<text class="${cls}" x="${cx}" y="${y + 28}">${esc(lines[0].replace("CAPS WORD", "CAPS WD"))}</text>`;
     return o;
   }
   if (lines.length === 1) {
@@ -117,9 +118,9 @@ function key(x, y, label, kind, hold) {
     // sheet used to place physical keycaps, so nudge each to where it reads.
     const nudge = { ',': 3, '.': 3, _: 5, "'": -3, '`': -3, '~': -1 };
     const dy = nudge[lines[0]] || 0;
-    o += `<text class="${cls}" x="${cx}" y="${y + KH / 2 + 5 + dy}">${esc(lines[0])}</text>`;
+    o += `<text class="${cls}" x="${cx}" y="${y + KH / 2 + 5 + dy}">${esc(lines[0].replace("CAPS WORD", "CAPS WD"))}</text>`;
   } else {
-    o += `<text class="${cls}" x="${cx}" y="${y + KH / 2 - 1}">${esc(lines[0])}</text>`;
+    o += `<text class="${cls}" x="${cx}" y="${y + KH / 2 - 1}">${esc(lines[0].replace("CAPS WORD", "CAPS WD"))}</text>`;
     o += `<text class="${cls}" x="${cx}" y="${y + KH / 2 + 11}">${esc(lines[1])}</text>`;
   }
   return o;
@@ -157,7 +158,7 @@ for (const L of layers) {
   cy += layerH;
 }
 
-s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN - 16}">Tap Tab / hold 200ms for Ctrl. J and K are plain letters. Alt = Option on Mac. Lower + Alt = Caps Word.</text>`;
+s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN - 16}">Tap Tab / hold for Ctrl. Tap Caps Word / hold for Alt (Option on Mac). Both holds: 200 ms. J and K: plain letters.</text>`;
 s += `<text class="leg" x="${MARGIN}" y="${PAGE_H - MARGIN}">Only the Base layer is printed on the keycaps. Caps word capitalises until a space, and underscores do not break it.</text>`;
 s += '</svg>';
 
