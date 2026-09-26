@@ -1,0 +1,10 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),cp=require('child_process');
+const root=path.join(__dirname,'../..');
+const source=fs.readFileSync(path.join(__dirname,'../generate-layout.js'),'utf8');
+const context={require,__dirname:path.join(__dirname,'..')};
+vm.createContext(context);
+vm.runInContext(source.slice(0,source.indexOf('const esc ='))+'\nglobalThis.result = layers;',context);
+const data={revision:cp.execFileSync('git',['log','-1','--format=%h','--','config/corne.keymap'],{cwd:root,encoding:'utf8'}).trim(),layers:context.result};
+const template=fs.readFileSync(path.join(__dirname,'template.html'),'utf8');
+fs.writeFileSync(path.join(__dirname,'index.html'),template.replace('__KEYMAP_DATA__',JSON.stringify(data).replace(/</g,'\\u003c')));
+console.log('Generated mobile reference from four live keymap layers.');
