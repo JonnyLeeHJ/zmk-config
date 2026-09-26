@@ -11,6 +11,14 @@
 
 / {
         behaviors {
+                alt_caps: alt_caps {
+                        compatible = "zmk,behavior-hold-tap";
+                        #binding-cells = <2>;
+                        flavor = "tap-preferred";
+                        tapping-term-ms = <200>;
+                        bindings = <&kp>, <&caps_word>;
+                };
+
                 tab_ctrl: tab_ctrl {
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
@@ -28,6 +36,7 @@
                 };
         };
 
+        // CW/AL: tap Caps Word, hold 200 ms for Right Alt / Option.
         keymap {
                 compatible = "zmk,keymap";
 
@@ -35,12 +44,12 @@
                         label = "Base";
 // -----------------------------------------------------------------------------------------
 // | ESC |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U  |  I  |  O  |  P  | GUI |
-// |  `  |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  ;  | ALT |
+// |  `  |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  ;  |CW/AL|
 // |C/TAB|  Z  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  |  /  | RSE |
 //                   | LWR | SFT | BSPC|   | ENT | SPC |  '  |
                         bindings = <
    &kp ESC   &kp Q &kp W &kp E &kp R &kp T          &kp Y       &kp U &kp I &kp O &kp P    &kp LGUI
-   &kp GRAVE &kp A &kp S &kp D &kp F &kp G          &kp H       &kp J &kp K &kp L &kp SEMI &kp RALT
+   &kp GRAVE &kp A &kp S &kp D &kp F &kp G          &kp H       &kp J &kp K &kp L &kp SEMI &alt_caps RALT 0
    &tab_ctrl LCTRL TAB &kp Z &kp X &kp C &kp V &kp B          &kp N       &kp M &kp COMMA &kp DOT &kp FSLH &mo 2
                     &mo 1 &kp LSHFT &kp BSPC        &kp RET &kp SPACE &kp SQT
                         >;
@@ -50,12 +59,12 @@
                         label = "Lower";
 // -----------------------------------------------------------------------------------------
 // |     |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  |     |
-// |     |  `  |  ~  |  _  |  \  |  |  |   |     |  (  |  )  |  {  |  }  |CAPSW|
+// |     |  `  |  ~  |  _  |  \  |  |  |   |     |  (  |  )  |  {  |  }  |     |
 // |     |     |     |     |     |     |   |     |  [  |  ]  |     |     |     |
 //                   |     |     | DEL |   |     |     |     |
                         bindings = <
    &trans &kp EXCL  &kp AT    &kp HASH  &kp DLLR &kp PRCNT       &kp CARET &kp AMPS &kp STAR &kp LPAR &kp RPAR &trans
-   &trans &kp GRAVE &kp TILDE &kp UNDER &kp BSLH &kp PIPE        &trans    &kp LPAR &kp RPAR &kp LBRC &kp RBRC &caps_word
+   &trans &kp GRAVE &kp TILDE &kp UNDER &kp BSLH &kp PIPE        &trans    &kp LPAR &kp RPAR &kp LBRC &kp RBRC &trans
    &trans &trans    &trans    &trans    &trans   &trans          &trans    &kp LBKT &kp RBKT &trans   &trans   &trans
                               &trans &trans &kp DEL              &trans &trans &trans
                         >;
