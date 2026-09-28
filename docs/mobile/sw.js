@@ -1,4 +1,4 @@
-const CACHE='corne-pocket-791650ef4f4cd14c';
+const CACHE='corne-pocket-0824848b1e91576e';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./layout.pdf'];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));

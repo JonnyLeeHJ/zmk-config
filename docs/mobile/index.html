@@ -3,14 +3,24 @@
 <style>
 :root{color-scheme:light;--paper:#f5f3ee;--ink:#262c29;--muted:#69716b;--accent:#285a46;--line:#d9ded5;--key:#fffefa}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:960px;margin:auto;padding:28px 20px 36px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}h1{font-size:32px;line-height:1.1;letter-spacing:-1px;margin:7px 0}header span{font-size:12px;color:var(--muted)}button{font:inherit;cursor:pointer}nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;background:#e8eae3;border-radius:12px;position:sticky;top:8px;z-index:2}nav button{border:0;background:transparent;color:var(--muted);border-radius:8px;min-height:44px;font-size:14px;font-weight:600}nav button[aria-pressed=true]{background:var(--accent);color:white}h2{font-size:22px;margin:24px 0 3px}.hint{margin:0;color:var(--muted);font-size:14px;min-height:42px}.boards{display:grid;gap:26px;margin:20px 0}.half-title{display:flex;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px}.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;align-items:start}.column{display:grid;gap:6px;padding-top:var(--stagger)}.key{min-width:0;width:100%;height:49px;border:1px solid #a8b3aa;border-bottom-width:3px;border-radius:7px;background:var(--key);color:var(--ink);font-size:16px;font-weight:600;line-height:1.05;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:3px}.key.long{font-size:11px}.key small{font-size:9px;font-weight:500}.key.inherited{background:transparent;border-color:var(--line);color:var(--muted)}.key.special{border-color:#799681;background:#e3ede2}.key.selected{outline:3px solid var(--accent);outline-offset:2px}.key:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #bf691f;outline-offset:3px}.thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-top:12px}.thumbs.left .key:first-child{grid-column:4}.thumbs.right .key:first-child{grid-column:1}.legend{font-size:12px;color:var(--muted);margin:8px 0 18px}.detail{border-top:2px solid var(--accent);padding:15px 0;min-height:105px}.detail strong{font-size:18px}.detail p{font-size:14px;color:var(--muted);margin:5px 0}details{border-top:1px solid var(--line);padding:14px 0;font-size:14px}summary{cursor:pointer;font-weight:600;min-height:30px}details p{color:var(--muted)}footer{font-size:12px;color:var(--muted);margin-top:24px}a{color:var(--accent)}.os{border:1px solid var(--line);padding:9px 11px;border-radius:8px;background:transparent;font-size:12px;min-height:44px}@media(min-width:720px){main{padding:40px}.boards{grid-template-columns:1fr 1fr;gap:30px;margin:32px 0}.key{height:57px}h1{font-size:40px}.hint{min-height:0}}@media(max-width:359px){main{padding:20px 12px}.grid,.thumbs{gap:4px}.key{font-size:14px}}@media(prefers-color-scheme:dark){:root{color-scheme:dark;--paper:#191e1b;--ink:#edf1ea;--muted:#a6b0a8;--accent:#8db99d;--line:#414a43;--key:#272e29}nav{background:#272e29}nav button[aria-pressed=true]{color:#142218}.key.special{background:#2f4435;border-color:#86a58f}.key{border-color:#728175}.os{color:var(--ink)}} 
 </style></head><body><main>
-<header><div><div class="eyebrow">Your keyboard, at a glance</div><h1>Corne</h1><span>Pocket keymap</span></div><button class="os" id="os">Labels: Mac</button></header>
+<header><div><h1>Corne</h1><span>Pocket keymap</span></div><button class="os" id="os">Labels: Mac</button></header>
 <nav aria-label="Choose keyboard layer" id="layers"></nav>
 <h2 id="title"></h2><p class="hint" id="hint"></p>
 <div class="boards" id="boards"></div><p class="legend">Muted keys inherit their action. Tap any key to see what it does.</p>
-<section class="detail" aria-live="polite"><strong id="keyTitle">A place for every key.</strong><p id="keyDetail">Choose a key above for its action and any hold behavior.</p></section>
-<details><summary>Everyday shortcuts</summary><p>Tap Tab for Tab. Hold it for 200 ms before pressing another key for Ctrl shortcuts. J and K are ordinary letters.</p><p>On Mac, GUI is Command and Alt is Option. On Windows, GUI is Windows and Right Alt may act as AltGr, depending on your keyboard language.</p><p>Tap the right outer home-row key for Caps Word, or hold it for 200 ms for Alt/Option. No layer is needed. Space ends Caps Word; underscores keep it active.</p></details>
-<details><summary>Install on iPhone</summary><p>Open this page in Safari. Choose Share, then Add to Home Screen. Enable Open as Web App if offered. Open online once before using it offline. Reopen online after a firmware update to refresh the mapping.</p></details><details><summary>Reading the layers</summary><p>Lower: hold the left outer thumb. Raise: hold the right outer bottom key. Adjust: hold both together.</p><p>On Adjust, inherited bindings resolve through Raise, then Lower, then Base. These are reference buttons: tapping them here never sends a command to your keyboard.</p></details>
-<footer>From your firmware keymap · <a id="source">source</a><br><a href="./layout.pdf">Printable A4 sheet</a> · <span id="offlineStatus">Open online once to save for offline use.</span></footer>
+<section class="detail" aria-live="polite" hidden><strong id="keyTitle">A place for every key.</strong><p id="keyDetail">Choose a key above for its action and any hold behavior.</p></section>
+<details><summary>Modifiers &amp; layer combinations</summary>
+<p><b>Tab / Ctrl:</b> tap for Tab; hold 200 ms for Ctrl before pressing a shortcut key.</p>
+<p><b>Caps Word / Alt:</b> tap for Caps Word; hold 200 ms for Alt (Option on Mac). Space ends Caps Word; underscores continue it.</p>
+<p><b>Lower:</b> hold the left outer thumb. <b>Raise:</b> hold the right outer bottom key. <b>Adjust:</b> hold both.</p>
+<p><b>Delete:</b> Lower + Backspace. <b>Select text:</b> Shift + Raise + arrow.</p>
+</details>
+<details><summary>Symbols &amp; SQL punctuation</summary>
+<p><b>Lower:</b> parentheses, braces, brackets, underscore, backslash and pipe.</p>
+<p><b>Raise:</b> numbers and = + - * /.</p>
+<p><b>Shift + comma / period:</b> &lt; / &gt;.<br><b>Shift + semicolon:</b> colon.<br><b>Shift + apostrophe:</b> double quote.<br><b>Shift + slash:</b> question mark.</p>
+<p>Type comparisons as consecutive characters: &lt;=, &gt;=, != or &lt;&gt;. These are not single-key macros. Symbol labels assume a US host keyboard layout.</p>
+</details>
+<footer><a href="./layout.pdf">Printable keymap</a></footer>
 </main><script>
 const DATA={"revision":"61cb7a3","layers":[{"name":"Base","sub":"no key held","rows":[["ESC","Q","W","E","R","T","Y","U","I","O","P","GUI"],["`","A","S","D","F","G","H","J","K","L",";","CAPS WORD"],["TAB","Z","X","C","V","B","N","M",",",".","/","RAISE"]],"thumbs":["LOWER","SHIFT","BKSP","ENTER","SPACE","'"],"holds":{"1,11":"ALT / OPT","2,0":"CTRL"},"accents":["1,11","2,0","2,11"],"thumbAccents":[0]},{"name":"Lower","sub":"hold left outer thumb","rows":[["","!","@","#","$","%","^","&","*","(",")",""],["","`","~","_","\\","|","","(",")","{","}",""],["","","","","","","","[","]","","",""]],"thumbs":["","","DEL","","",""],"holds":{},"accents":[],"thumbAccents":[]},{"name":"Raise","sub":"hold bottom right outer key","rows":[["","7","8","9","/","*","","","UP","","VOL+",""],["","4","5","6","-","+","","LEFT","DOWN","RIGHT","VOL-",""],["","1","2","3","0","=","","PREV","PLAY","NEXT","MUTE",""]],"thumbs":["","","","","",""],"holds":{},"accents":[],"thumbAccents":[]},{"name":"Adjust","sub":"hold Lower and Raise together","rows":[["","F1","F2","F3","F4","F5","F6","F7","F8","F9","F10",""],["","F11","F12","CAPS","INS","PRT\nSCR","HOME","PG\nUP","PG\nDN","END","BOOT",""],["","USB","BLE","BT\nCLR","BOOT","RESET","BT 1","BT 2","BT 3","BT 4","BT 5",""]],"thumbs":["","","","","",""],"holds":{},"accents":[],"thumbAccents":[]}]};
 let active=0,mac=true;
@@ -23,7 +33,7 @@ const hints=['Everyday typing. Tap Tab; hold 200 ms for Ctrl.','Hold the left ou
 function resolve(i){const order=active===3?[3,2,1,0]:active?[active,0]:[0];for(const layer of order)if(raw[layer][i])return {label:raw[layer][i],layer,hold:holdFor(i,layer)};throw Error('Unbound key '+i)}
 function labelFor(label){if(label==='GUI')return mac?'CMD':'WIN';if(label==='ALT\nOPT')return mac?'OPT':'ALT';return label}
 function info(i){
- const key=resolve(i),label=labelFor(key.label),base=labelFor(raw[0][i]);
+ const key=resolve(i),label=labelFor(key.label);
  let message='Press for '+label.replaceAll('\n',' ')+'.';
  if(i===24&&key.layer===0)message='Tap for Tab. Hold for 200 ms for Left Ctrl; then press your shortcut key. A quick tap stays Tab even when another key overlaps.';
  else if(key.hold==='ALT / OPT')message='Tap for Caps Word. Hold for 200 ms for '+(mac?'Right Option':'Right Alt')+' before pressing a shortcut key. No layer is needed. Spaces end Caps Word; underscores continue it.';
@@ -32,12 +42,13 @@ function info(i){
  else if(key.label==='CAPS\nWORD')message='Activate Caps Word, then type. Space ends it; underscores continue it.';
  else if(key.label==='LOWER')message='Hold the left outer thumb to activate Lower. Combine with Raise for Adjust.';
  else if(key.label==='RAISE')message='Hold the right outer bottom key to activate Raise. Combine with Lower for Adjust.';
- else if(key.label==='BOOT')message='Enter the bootloader for firmware flashing. This page only describes the binding; it does not trigger it.';
+ else if(key.label==='BOOT')message='Enter the bootloader for firmware flashing.';
  else if(key.label==='RESET')message='Restart using the firmware reset binding. This does not clear Bluetooth pairings.';
  else if(key.label==='BT\nCLR')message='Clear the bond in the selected Bluetooth profile. Remove the old pairing on that host before pairing again.';
  else if(key.label.startsWith('BT '))message='Select Bluetooth profile '+key.label.slice(3)+'. This does not clear an existing bond.';
  else if(key.label==='USB'||key.label==='BLE')message='Prefer '+(key.label==='USB'?'USB':'Bluetooth')+' for keyboard output.';
  if(key.layer!==active)message+=' Inherited from '+DATA.layers[key.layer].name+'.';
+ document.querySelector('.detail').hidden=false;
  document.querySelector('#keyTitle').textContent=label.replaceAll('\n',' ');
  document.querySelector('#keyDetail').textContent=message;
  document.querySelectorAll('.key').forEach(b=>b.classList.toggle('selected',Number(b.dataset.index)===i));
@@ -66,16 +77,12 @@ function render(){
  for(let col=0;col<6;col++){const column=document.createElement('div');column.className='column';column.style.setProperty('--stagger',stagger[col]+'px');for(let row=0;row<3;row++)column.append(keyButton(row*12+half*6+col));grid.append(column)}section.append(grid);
  const thumbs=document.createElement('div');thumbs.className='thumbs '+(half?'right':'left');for(let t=0;t<3;t++)thumbs.append(keyButton(36+half*3+t));section.append(thumbs);boards.append(section);
  });
- document.querySelector('#keyTitle').textContent='Explore '+DATA.layers[active].name;
- document.querySelector('#keyDetail').textContent='Tap a key for its action. Muted keys still work through the underlying layers.';
+ document.querySelector('.detail').hidden=true;
 }
 DATA.layers.forEach((l,i)=>{const b=document.createElement('button');b.textContent=l.name;b.type='button';b.onclick=()=>{active=i;render()};document.querySelector('#layers').append(b)});
 document.querySelector('#os').onclick=()=>{mac=!mac;try{localStorage.setItem('corne-os',mac?'mac':'windows')}catch{}document.querySelector('#os').textContent='Labels: '+(mac?'Mac':'Windows');render()};
-const source=document.querySelector('#source');source.textContent=DATA.revision;source.href='https://github.com/JonnyLeeHJ/zmk-config/blob/'+DATA.revision+'/config/corne.keymap';
 render();
 if('serviceWorker' in navigator && location.protocol!=='file:'){
- navigator.serviceWorker.register('./sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{
- document.querySelector('#offlineStatus').textContent='Saved for offline use.';
- }).catch(()=>{document.querySelector('#offlineStatus').textContent='Offline setup unavailable. You can still browse online.';});
+ navigator.serviceWorker.register('./sw.js').catch(error=>console.warn('Offline cache unavailable',error));
 }
 </script></body></html>
